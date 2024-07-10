@@ -12,6 +12,9 @@ export default {
       fontFamily: {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
       },
+      backgroundImage: {
+        "llamados": "url('/images/fondo.webp')",
+      }
     },
   },
   plugins: [

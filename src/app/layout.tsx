@@ -1,8 +1,8 @@
-import "@/styles/globals.css";
+import "@jebe/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 
-import { TRPCReactProvider } from "@/trpc/react";
+import { TRPCReactProvider } from "@jebe/trpc/react";
 import {NextUIProvider} from "@nextui-org/react";
 
 
@@ -22,7 +22,7 @@ export default function RootLayout({
       <body>
         <TRPCReactProvider>
           <NextUIProvider>
-            <main className="w-screen h-screen flex">
+            <main className="w-screen h-screen flex bg-llamados bg-center bg-cover">
             {children}
             </main>
           </NextUIProvider>
