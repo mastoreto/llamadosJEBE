@@ -8,7 +8,7 @@ import {DateInput} from "@nextui-org/date-input";
 import {CalendarDate} from "@internationalized/date";
 import {Select, SelectSection, SelectItem} from "@nextui-org/select";
 import {useInfiniteScroll} from "@nextui-org/use-infinite-scroll";
-
+import { api } from "@jebe/trpc/react";
 
 const FirstStep = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +16,14 @@ const FirstStep = () => {
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [onLoadMore, setOnLoadMore] = useState();
+
+  const {
+    data: states,
+    isLoading: isLoadingStates,
+    isFetching: isFetchingStates,
+  } = api.states.getAll.useQuery(); 
+
+  console.log(states);
 
   const [, scrollerRef] = useInfiniteScroll({
     hasMore,
@@ -79,8 +87,8 @@ const FirstStep = () => {
       onOpenChange={setIsOpen}
     >
       {(item) => (
-        <SelectItem key={0} className="capitalize">
-          Nothing
+        <SelectItem key={Number(item.state_id)} className="capitalize">
+          {item.state_name}
         </SelectItem>
       )}
     </Select>

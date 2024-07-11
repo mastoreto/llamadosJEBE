@@ -7,68 +7,321 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url      = env("DATABASE_URL")
-}
-
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
 }
 
 // Necessary for Next auth
 model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String? // @db.Text
-    session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
+  id                String  @id @default(cuid())
+  userId            BigInt
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? // @db.Text
+  access_token      String? // @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? // @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       BigInt
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
+  @@index([userId])
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
+}
+
+model State {
+  state_id   BigInt   @id @unique @default(autoincrement()) @db.BigInt
+  state_name String
+  cities     City[]
+  church     Church[]
+  user       User[]
+  place      Place[]
+}
+
+model City {
+  city_id       BigInt @id @unique @default(autoincrement()) @db.BigInt
+  city_name     String
+  city_state_id BigInt
+  state         State  @relation(fields: [city_state_id], references: [state_id], onDelete: Cascade)
+}
+
+model Sex {
+  sex_id   BigInt @id @unique @default(autoincrement()) @db.BigInt
+  sex_name String
+  user     User[]
+}
+
+model Pathology {
+  pathology_id   BigInt          @id @unique @default(autoincrement()) @db.BigInt
+  pathology_name String
+  userPathology  UserPathology[]
+}
+
+model Role {
+  role_id                BigInt                   @id @unique @default(autoincrement()) @db.BigInt
+  role_name              String
+  user                   User[]
+  rolesModifySistemAreas RolesModifySistemAreas[]
+}
+
+model CivilStatus {
+  civil_status_id   BigInt @id @unique @default(autoincrement()) @db.BigInt
+  civil_status_name String
+  user              User[]
+}
+
+model Church {
+  church_id               BigInt @id @unique @default(autoincrement()) @db.BigInt
+  church_name             String
+  church_state_id         BigInt
+  church_postal_code      Int
+  church_address          String
+  church_pastor_name      String
+  church_pastor_email     String
+  church_pastor_phone     Int
+  church_pastor_cellphone Int
+  state                   State  @relation(fields: [church_state_id], references: [state_id], onDelete: Cascade)
+  user                    User[]
+}
+
+model User {
+  userId                  BigInt                       @id @unique
+  email                   String                       @unique
+  googleId                String?                      @unique
+  user_name               String
+  user_surname            String
+  user_date_of_birthday   DateTime
+  user_civil_status_id    BigInt
+  user_sex_id             BigInt
+  user_church_id          BigInt
+  user_residence_state_id BigInt
+  user_role_id            BigInt
+  user_password           String
+  emailVerified           DateTime?
+  state                   State                        @relation(fields: [user_residence_state_id], references: [state_id], onDelete: Cascade)
+  church                  Church                       @relation(fields: [user_church_id], references: [church_id], onUpdate: Cascade)
+  sex                     Sex                          @relation(fields: [user_sex_id], references: [sex_id])
+  role                    Role?                        @relation(fields: [user_role_id], references: [role_id])
+  civilStatus             CivilStatus                  @relation(fields: [user_civil_status_id], references: [civil_status_id])
+  reservation             Reservation[]
+  UserPathologies         UserPathology[]
+  log                     Log[]
+  accounts                Account[]
+  sessions                Session[]
+  userGeneratePayment     ReservationGeneratePayment[]
+}
+
+model UserPathology {
+  id                BigInt    @id @unique @default(autoincrement()) @db.BigInt
+  userId            BigInt
+  user_pathology_id BigInt
+  user              User      @relation(fields: [userId], references: [userId])
+  pathology         Pathology @relation(fields: [user_pathology_id], references: [pathology_id], onUpdate: Cascade)
+}
+
+model Place {
+  place_id            BigInt @id @default(autoincrement()) @db.BigInt
+  place_name          String
+  place_address       String
+  place_state_id      BigInt
+  place_capacity      Int
+  place_phone_contact Int
+  place_manager       String
+
+  state        State          @relation(fields: [place_state_id], references: [state_id])
+  accomodation Accomodation[]
+  activity     Activity[]
+}
+
+model AccomodationType {
+  accomodaton_type_id BigInt         @id @default(autoincrement()) @db.BigInt
+  accomodation_name   String
+  accomodation        Accomodation[]
+  reservation         Reservation[]
+}
+
+model Accomodation {
+  accomodation_id       BigInt @id @default(autoincrement()) @db.BigInt
+  accomodation_name     String
+  accomodation_type_id  BigInt
+  accomodation_place_id BigInt
+  accomodation_capacity BigInt
+  accomodation_disponibility String @default("free") 
+
+  accomodationType AccomodationType @relation(fields: [accomodation_type_id], references: [accomodaton_type_id])
+  place            Place            @relation(fields: [accomodation_place_id], references: [place_id])
+  reservation      Reservation[]
+}
+
+model PaymentType {
+  payment_type_id   BigInt    @id @default(autoincrement()) @db.BigInt
+  payment_type_name String
+  payment           Payment[]
+}
+
+model PaymentStatus {
+  payment_status_id   BigInt    @id @default(autoincrement()) @db.BigInt
+  payment_status_name String
+  payment             Payment[]
+}
+
+model PaymentMethod {
+  payment_method_id   BigInt    @id @default(autoincrement()) @db.BigInt
+  payment_method_name String
+  payment             Payment[]
+}
+
+model Payment {
+  payment_id            BigInt   @id @default(autoincrement()) @db.BigInt
+  payment_method_id     BigInt
+  payment_status_id     BigInt
+  payment_type_id       BigInt
+  payment_description   String
+  payment_amount        Int
+  payment_creation_date DateTime
+
+  paymentType                PaymentType                  @relation(fields: [payment_type_id], references: [payment_type_id])
+  paymentStatus              PaymentStatus                @relation(fields: [payment_status_id], references: [payment_status_id])
+  paymentMethod              PaymentMethod                @relation(fields: [payment_method_id], references: [payment_method_id])
+  reservationGeneratePayment ReservationGeneratePayment[]
+}
+
+model Organization {
+  organization_id      BigInt @id @default(autoincrement()) @db.BigInt
+  organization_name    String
+  organization_manager String
+
+  organizationDevelopPeriod OrganizationDevelopPeriod[]
+}
+
+model Period {
+  period_id                 BigInt                      @id @default(autoincrement()) @db.BigInt
+  period_title              String
+  period_managers           String
+  organizationDevelopPeriod OrganizationDevelopPeriod[]
+  activity                  Activity[]
+}
+
+model OrganizationDevelopPeriod {
+  organization_develop_period_id BigInt @id @default(autoincrement()) @db.BigInt
+  organization_id                BigInt @unique
+  period_id                      BigInt
+
+  organization Organization @relation(fields: [organization_id], references: [organization_id])
+  period       Period       @relation(fields: [period_id], references: [period_id])
+}
+
+model Activity {
+  activity_id         BigInt   @id @default(autoincrement()) @db.BigInt
+  activity_name       String
+  activity_period_id  BigInt
+  activity_place_id   BigInt
+  activity_budget     BigInt
+  activity_date_start DateTime
+  activity_date_end   DateTime
+  activity_costs      Json[]
+
+  period      Period        @relation(fields: [activity_period_id], references: [period_id])
+  place       Place         @relation(fields: [activity_place_id], references: [place_id])
+  reservation Reservation[]
+}
+
+model ReservationStatus {
+  reservation_status_id   BigInt        @id @unique @default(autoincrement()) @db.BigInt
+  reservation_status_name String
+  reservation             Reservation[]
+}
+
+model Reservation {
+  reservation_id                   BigInt   @id @unique @default(autoincrement()) @db.BigInt
+  reservation_userId               BigInt   @unique
+  reservation_activity_id          BigInt
+  reservation_date_time_entry      DateTime
+  reservation_date_time_departure  DateTime
+  reservation_accomodation_type_id BigInt
+  reservation_status_id            BigInt
+  reservation_expiration_day       DateTime
+  reservation_last_payment         DateTime
+  reservation_deposit_amount       Int
+  reservation_amount               Int
+
+  activity                    Activity                     @relation(fields: [reservation_activity_id], references: [activity_id])
+  accomodation_type           AccomodationType             @relation(fields: [reservation_accomodation_type_id], references: [accomodaton_type_id])
+  reservationStatus           ReservationStatus            @relation(fields: [reservation_status_id], references: [reservation_status_id])
+  user                        User                         @relation(fields: [reservation_userId], references: [userId])
+  reservationGeneratePayment  ReservationGeneratePayment[]
+  Accomodation                Accomodation?                @relation(fields: [accomodationAccomodation_id], references: [accomodation_id])
+  accomodationAccomodation_id BigInt?                      @db.BigInt
+}
+
+model ReservationGeneratePayment {
+  reservation_generate_payment_id BigInt @id @default(autoincrement()) @db.BigInt
+  payment_user_id                 BigInt
+  payment_id                      BigInt
+  reservation_id                  BigInt
+
+  user        User        @relation(fields: [payment_user_id], references: [userId])
+  payment     Payment     @relation(fields: [payment_id], references: [payment_id])
+  reservation Reservation @relation(fields: [reservation_id], references: [reservation_id])
+}
+
+model Area {
+  area_id              BigInt                  @id @default(autoincrement()) @db.BigInt
+  area_description     String
+  log                  Log[]
+  logRegistrySystemAre LogRegistrySystemArea[]
+}
+
+model System {
+  system_id          BigInt   @id @unique @default(autoincrement()) @db.BigInt
+  system_area_id     BigInt
+  system_status_id   BigInt
+  system_last_change DateTime
+}
+
+model Log {
+  log_id                  BigInt   @id @unique @default(autoincrement()) @db.BigInt
+  log_user_identification BigInt
+  log_area_id             BigInt
+  log_description         String
+  log_date                DateTime
+
+  user                 User                    @relation(fields: [log_user_identification], references: [userId])
+  area                 Area                    @relation(fields: [log_area_id], references: [area_id])
+  logRegistrySystemAre LogRegistrySystemArea[]
+}
+
+model LogRegistrySystemArea {
+  log_registry_systen_area_id BigInt @id @default(autoincrement()) @db.BigInt
+  log_id                      BigInt
+  area_id                     BigInt
+
+  log  Log  @relation(fields: [log_id], references: [log_id])
+  area Area @relation(fields: [area_id], references: [area_id])
+}
+
+model RolesModifySistemAreas {
+  role_id      BigInt @unique
+  area_list_id String
+
+  role Role @relation(fields: [role_id], references: [role_id])
 }

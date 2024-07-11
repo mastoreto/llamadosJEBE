@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 "use client";
+import Image from "next/image";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/react";
@@ -50,22 +51,25 @@ const page = () => {
   }
 
   const validationSchema = Yup.object({
-    cedula: Yup.string().required("Campo requerido"),
-    email: Yup.string().email("Email inválido").required("Campo requerido"),
-    nombre: Yup.string().required("Campo requerido"),
-    apellido: Yup.string().required("Campo requerido"),
-    fechaNacimiento: Yup.string().required("Campo requerido"),
-    celular: Yup.string().required("Campo requerido"),
-    pais: Yup.string().required("Campo requerido"),
-    provincia: Yup.string().required("Campo requerido"),
-    ciudad: Yup.string().required("Campo requerido"),
-    iglesia: Yup.string().required("Campo requerido")
+    cedula: Yup.string().required("La cédula es requerida	"),
+    email: Yup.string().email("Email inválido").required("El email es requerido"),
+    nombre: Yup.string().required("El nombre es requerido"),
+    apellido: Yup.string().required("El apellido es requerido"),
+    fechaNacimiento: Yup.string().required("La fecha de nacimiento es requerida"),
+    celular: Yup.string().required("El celular es requerido"),
+    pais: Yup.string().required("El país es requerido"),
+    provincia: Yup.string().required("La provincia es requerida"),
+    ciudad: Yup.string().required("La ciudad es requerida"),
+    iglesia: Yup.string().required("La iglesia es requerida")
   });
 
   return (
     <section className='flex flex-row w-full'>
-      <div className='w-1/2 h-full p-5 flex justify-center items-center'>
-        <Card fullWidth>
+      <div className='w-1/2 h-full p-10 flex justify-center items-center'>
+        <Card 
+          fullWidth
+          className=""
+        >
           <CardHeader>
             <ProgressBar processStep={processStep} steps={steps} />
           </CardHeader>
@@ -88,7 +92,23 @@ const page = () => {
           </CardFooter>
         </Card>
       </div>
-      <div className='w-1/2 h-full'></div>
+      <div className='w-1/2 h-full flex justify-center items-center flex-col'>
+        <Image
+          src="/images/llamados.svg"
+          alt="hero"
+          width={250}
+          height={250}
+          objectFit="cover"
+        />
+          <Image
+          src="/images/jebe.svg"
+          alt="hero"
+          width={50}
+          height={50}
+          objectFit="cover"
+          className="my-5"
+        />
+      </div>
     </section>
   )
 }
