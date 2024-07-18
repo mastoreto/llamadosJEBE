@@ -1,23 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 "use client";
+import { useEffect } from "react";
 import Image from "next/image";
-import { Formik, Form } from "formik";
+import { Formik, Form, useFormikContext } from "formik";
 import * as Yup from "yup";
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/react";
 
 import ProgressBar from "./_components/ProgressBar";
 import Controls from "./_components/Controls";
 
-import FirstStep from "./_components/Steps/FirstStep";
-import SecondStep from "./_components/Steps/SecondStep";
+import Steps from "./_components/Steps";
 
 import { useFormSlice } from "@jebe/stores/form";
+import schemeValidation from "@jebe/utils/validations";
 
 const page = () => {
   const processStep = useFormSlice((state) => state.processStep);
+  const step = useFormSlice((state) => state.step);
 
   const steps = [
     {
@@ -50,22 +54,15 @@ const page = () => {
     iglesia: ""
   }
 
-  const validationSchema = Yup.object({
-    cedula: Yup.string().required("La cédula es requerida	"),
-    email: Yup.string().email("Email inválido").required("El email es requerido"),
-    nombre: Yup.string().required("El nombre es requerido"),
-    apellido: Yup.string().required("El apellido es requerido"),
-    fechaNacimiento: Yup.string().required("La fecha de nacimiento es requerida"),
-    celular: Yup.string().required("El celular es requerido"),
-    pais: Yup.string().required("El país es requerido"),
-    provincia: Yup.string().required("La provincia es requerida"),
-    ciudad: Yup.string().required("La ciudad es requerida"),
-    iglesia: Yup.string().required("La iglesia es requerida")
-  });
 
   return (
     <section className='flex flex-row w-full'>
       <div className='w-1/2 h-full p-10 flex justify-center items-center'>
+      <Formik
+              initialValues={initialValues}
+              validationSchema={schemeValidation?.[processStep]?.[step] ?? {}}
+              onSubmit={(values) => console.log(values)}
+            >
         <Card 
           fullWidth
           className=""
@@ -74,23 +71,17 @@ const page = () => {
             <ProgressBar processStep={processStep} steps={steps} />
           </CardHeader>
           <CardBody>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={(values) => console.log(values)}
-            >
+          
               <Form>
-                {
-                  processStep === 0 ? <FirstStep /> : 
-                  processStep === 1 ? <SecondStep /> : null
-                }
+               <Steps />
               </Form>
-            </Formik>
+        
           </CardBody>
           <CardFooter>
            <Controls />
           </CardFooter>
         </Card>
+        </Formik>
       </div>
       <div className='w-1/2 h-full flex justify-center items-center flex-col'>
         <Image
