@@ -67,8 +67,9 @@ const page = () => {
           fullWidth
           className=""
         >
-          <CardHeader>
+          <CardHeader className="flex flex-col">
             <ProgressBar processStep={processStep} steps={steps} />
+            <p>ProcessStep: {processStep} | Step: {step}</p>
           </CardHeader>
           <CardBody>
           

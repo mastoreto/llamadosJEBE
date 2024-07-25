@@ -8,6 +8,7 @@ import {Button, ButtonGroup} from "@nextui-org/button";
 import { useFormSlice } from '@jebe/stores/form';
 
 const Controls = () => {
+    const step = useFormSlice((state) => state.step);
     const processStep = useFormSlice((state) => state.processStep);
     const nextStep = useFormSlice((state) => state.nextStep);
     const prevStep = useFormSlice((state) => state.prevStep);
@@ -17,13 +18,20 @@ const Controls = () => {
     }
 
     const handlePrevStep = () => {
-        prevStep();
+        if(processStep > 0 && step > 0){
+          prevStep();
+        }
     }
+
+    console.log(processStep > 0 || step > 0);
+
 
   return (
     <ButtonGroup className='w-full'>
-        <Button color="warning" className='w-1/2' onClick={() => handlePrevStep()}>Anterior</Button>
-        <Button color="warning" className='w-1/2' onClick={() => handleNextStep()}>Siguiente</Button>
+        {
+          (processStep > 0 || step > 0) && (<Button color="warning" className='w-1/2' onClick={() => handlePrevStep()}>Anterior</Button>)
+        }
+        <Button color="warning" className={`${(processStep > 0 || step > 0) ? 'w-1/2' : 'w-full'}`} onClick={() => handleNextStep()}>Siguiente</Button>
     </ButtonGroup>
   )
 }

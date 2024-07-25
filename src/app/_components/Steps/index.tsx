@@ -4,11 +4,13 @@ import { useFormikContext } from 'formik';
 
 import FirstStep from './FirstStep';
 import SecondStep from './SecondStep';
+import ThirdStep from './ThirdStep';
 
 import { useFormSlice } from '@jebe/stores/form';
+
 const Steps = () => {
     const processStep = useFormSlice((state) => state.processStep);
-    const step = useFormSlice((state) => state.step);
+    //const step = useFormSlice((state) => state.step);
     const { submitForm, validateForm, setTouched, isValid } = useFormikContext();
     
     useEffect(() => {
@@ -23,7 +25,9 @@ const Steps = () => {
         <>
             {
                 processStep === 0 ? <FirstStep /> : 
-                processStep === 1 ? <SecondStep /> : null
+                processStep === 1 ? <SecondStep /> :
+                processStep === 2 && <ThirdStep />
+                
             }
         </>
     )
