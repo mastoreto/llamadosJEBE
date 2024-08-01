@@ -6,6 +6,7 @@ interface FieldProps {
     type: string;
     name: string;
     props: {
+        isRequired?: boolean;
         label: string;
         id: string;
         placeholder: string;
@@ -15,7 +16,7 @@ interface FieldProps {
 
 const Field:React.FC<FieldProps> = ({type,name, props}) => {
   const [field, meta] = useField({name});
-  const {label, id, placeholder, customClassName} = props;
+  const {label, id, placeholder, customClassName, isRequired} = props;
 
   const isInvalid  = useMemo(() => {
     if (meta.touched && meta.error) {
@@ -29,7 +30,10 @@ const Field:React.FC<FieldProps> = ({type,name, props}) => {
   return (
     <Input 
         type={type}
+        id={id}
+        placeholder={placeholder}
         isInvalid={isInvalid}
+        isRequired={isRequired}
         errorMessage={meta.error}
         label={label}
         {...field}

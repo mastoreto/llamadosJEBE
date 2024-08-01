@@ -48,13 +48,23 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Country {
+  country_id    BigInt         @id @unique @default(autoincrement()) @db.BigInt
+  country_name  String
+  states        State[]
+  organizations Organization[]
+}
+
 model State {
-  state_id   BigInt   @id @unique @default(autoincrement()) @db.BigInt
-  state_name String
-  cities     City[]
-  church     Church[]
-  user       User[]
-  place      Place[]
+  state_id         BigInt @id @unique @default(autoincrement()) @db.BigInt
+  state_name       String
+  state_country_id BigInt
+
+  cities  City[]
+  church  Church[]
+  user    User[]
+  place   Place[]
+  country Country  @relation(fields: [state_country_id], references: [country_id])
 }
 
 model City {
@@ -149,7 +159,7 @@ model Place {
 
   state        State          @relation(fields: [place_state_id], references: [state_id])
   accomodation Accomodation[]
-  activity     Activity[]
+  Event     Event[]
 }
 
 model AccomodationType {
@@ -206,11 +216,14 @@ model Payment {
 }
 
 model Organization {
-  organization_id      BigInt @id @default(autoincrement()) @db.BigInt
-  organization_name    String
-  organization_manager String
+  organization_id         BigInt @id @default(autoincrement()) @db.BigInt
+  organization_name       String
+  organization_country_id BigInt
+  organization_manager    String
 
   organizationDevelopPeriod OrganizationDevelopPeriod[]
+  country                   Country                     @relation(fields: [organization_country_id], references: [country_id])
+  events                     EventOrganizations[]
 }
 
 model Period {
@@ -218,7 +231,7 @@ model Period {
   period_title              String
   period_managers           String
   organizationDevelopPeriod OrganizationDevelopPeriod[]
-  activity                  Activity[]
+  event                  Event[]
 }
 
 model OrganizationDevelopPeriod {
@@ -230,19 +243,32 @@ model OrganizationDevelopPeriod {
   period       Period       @relation(fields: [period_id], references: [period_id])
 }
 
-model Activity {
-  activity_id         BigInt   @id @default(autoincrement()) @db.BigInt
-  activity_name       String
-  activity_period_id  BigInt
-  activity_place_id   BigInt
-  activity_budget     BigInt
-  activity_date_start DateTime
-  activity_date_end   DateTime
-  activity_costs      Json[]
+model Event {
+  event_id              BigInt   @id @default(autoincrement()) @db.BigInt
+  event_name            String
+  event_period_id       BigInt
+  event_place_id        BigInt
+  event_budget          BigInt
+  event_date_start      DateTime
+  event_date_end        DateTime
+  event_organization_id BigInt
+  event_costs           Json[]
 
-  period      Period        @relation(fields: [activity_period_id], references: [period_id])
-  place       Place         @relation(fields: [activity_place_id], references: [place_id])
-  reservation Reservation[]
+  period       Period         @relation(fields: [event_period_id], references: [period_id])
+  place        Place          @relation(fields: [event_place_id], references: [place_id])
+  reservation  Reservation[]
+  organizations EventOrganizations[]
+}
+
+model EventOrganizations {
+  evebt_organization_id BigInt @default(autoincrement())
+  event_id         BigInt 
+  organization_id  BigInt
+
+  event         Event        @relation(fields: [event_id], references: [event_id])
+  organization  Organization @relation(fields: [organization_id], references: [organization_id])
+
+   @@id([event_id, organization_id])
 }
 
 model ReservationStatus {
@@ -264,7 +290,7 @@ model Reservation {
   reservation_deposit_amount       Int
   reservation_amount               Int
 
-  activity                    Activity                     @relation(fields: [reservation_activity_id], references: [activity_id])
+  event                       Event                     @relation(fields: [reservation_activity_id], references: [event_id])
   accomodation_type           AccomodationType             @relation(fields: [reservation_accomodation_type_id], references: [accomodaton_type_id])
   reservationStatus           ReservationStatus            @relation(fields: [reservation_status_id], references: [reservation_status_id])
   user                        User                         @relation(fields: [reservation_userId], references: [userId])

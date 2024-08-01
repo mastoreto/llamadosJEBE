@@ -10,7 +10,7 @@ type FormState = {
 };
 
 export const useFormSlice = create<FormState>((set) => ({
-    processStep: 1,
+    processStep: 0,
     step: 0,
     nextStep: () => set((state) => ({ step: state.step + 1 })),
     prevStep: () => set((state) => ({ step: state.step - 1 })),

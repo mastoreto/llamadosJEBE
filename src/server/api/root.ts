@@ -1,4 +1,4 @@
-import { statesRouter } from "@jebe/server/api/routers";
+import { countriesRouter, statesRouter, churchesRouter } from "@jebe/server/api/routers";
 import { createCallerFactory, createTRPCRouter } from "@jebe/server/api/trpc";
 
 /**
@@ -7,7 +7,9 @@ import { createCallerFactory, createTRPCRouter } from "@jebe/server/api/trpc";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
+  countries: countriesRouter,
   states: statesRouter,
+  churches: churchesRouter,
 });
 
 // export type definition of API

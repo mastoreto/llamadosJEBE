@@ -5,19 +5,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 "use client";
-import { useEffect } from "react";
 import Image from "next/image";
-import { Formik, Form, useFormikContext } from "formik";
-import * as Yup from "yup";
+import { Formik, Form } from "formik";
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/react";
-
+import { CalendarDate } from "@internationalized/date";
 import ProgressBar from "./_components/ProgressBar";
 import Controls from "./_components/Controls";
 
 import Steps from "./_components/Steps";
 
 import { useFormSlice } from "@jebe/stores/form";
-import schemeValidation from "@jebe/utils/validations";
+import { getValidationProcess } from "@jebe/utils/validations";
+import type { InitialValues } from "@jebe/utils/types";
 
 const page = () => {
   const processStep = useFormSlice((state) => state.processStep);
@@ -41,26 +40,32 @@ const page = () => {
     }
   ];
 
-  const initialValues = {
-    cedula: "",
-    email: "",
-    nombre: "",
-    apellido: "",
-    fechaNacimiento: "",
-    celular: "",
-    pais: "",
-    provincia: "",
-    ciudad: "",
-    iglesia: ""
-  }
 
+  const initialValues: InitialValues = {
+    identificationCard: "",
+    email: "",
+    firstname: "",
+    lastname: "",
+    birthDay: new CalendarDate(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate()
+    ),
+    cellphone: "",
+    contact: "",
+    discopat: "",
+    country: "",
+    state: "",
+    city: "",
+    church: ""
+  }
 
   return (
     <section className='flex flex-row w-full'>
       <div className='w-1/2 h-full p-10 flex justify-center items-center'>
       <Formik
               initialValues={initialValues}
-              validationSchema={schemeValidation?.[processStep]?.[step] ?? {}}
+              validationSchema={getValidationProcess(processStep, step)}
               onSubmit={(values) => console.log(values)}
             >
         <Card 

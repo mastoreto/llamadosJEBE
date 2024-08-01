@@ -2,26 +2,43 @@ import * as Yup from 'yup';
 
 const stepOne = [
         Yup.object({
-            cedula: Yup.string().required("La cédula es requerida	"),
+            identificationCard: Yup.string().required("La cédula es requerida	"),
             email: Yup.string().email("Email inválido").required("El email es requerido"),
-            nombre: Yup.string().required("El nombre es requerido"),
-            apellido: Yup.string().required("El apellido es requerido"),
-            fechaNacimiento: Yup.string().required("La fecha de nacimiento es requerida"),
-            celular: Yup.string().required("El celular es requerido"),
+            fistname: Yup.string().required("El nombre es requerido"),
+            lastname: Yup.string().required("El apellido es requerido"),
+            birthDay: Yup.date().required("La fecha de nacimiento es requerida"),
+            cellphone: Yup.string().required("El celular es requerido"),
+            contact: Yup.string().required("El contacto es requerido")
         })
     ,
         Yup.object({
-            pais: Yup.string().required("El país es requerido"),
-            provincia: Yup.string().required("La provincia es requerida"),
-            ciudad: Yup.string().required("La ciudad es requerida")
+            country: Yup.string().required("El país es requerido"),
+            state: Yup.string().required("La provincia es requerida"),
+            city: Yup.string().required("La ciudad es requerida")
         })
 ];
+
 const stepTwo = [
         Yup.object({
-            iglesia: Yup.string().required("La iglesia es requerida")
+            church: Yup.string().required("La iglesia es requerida")
         })
 ];
+
 const stepThree = [];
 
 const schemeValidation = [stepOne, stepTwo, [], [], []];
-export default schemeValidation;
+
+const getValidationProcess = (processStep: number, step: number) => {
+    const currentValidationScheme = schemeValidation?.[processStep];
+    if(Array.isArray(currentValidationScheme) && currentValidationScheme.length > 0){
+      return currentValidationScheme[step];
+    }else{
+      return currentValidationScheme;
+    }
+  }
+
+const numberOfSteps = schemeValidation.length;
+
+const getNumberOfSubSteps = (processStep: number) => Array.isArray(schemeValidation[processStep]) && schemeValidation[processStep]?.length - 1;
+
+export {getValidationProcess, getNumberOfSubSteps, schemeValidation, numberOfSteps};

@@ -1,42 +1,42 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 "use client";
 import { useState } from "react";
 import Field from '../Inputs/Field';
-import { Input } from "@nextui-org/react";
-import { DateInput } from "@nextui-org/date-input";
-import { CalendarDate } from "@internationalized/date";
+import FieldDate from '../Inputs/FieldDate';
+import FieldSelect from "../Inputs/FieldSelect";
 import { Select, SelectSection, SelectItem, type Selection } from "@nextui-org/react";
 import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
 import { RadioGroup, Radio } from "@nextui-org/radio";
-import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
+import { useFormikContext } from "formik";
 import { api } from "@jebe/trpc/react";
+
+import type { InitialValues } from '@jebe/utils/types';
+
 import { useFormSlice } from '@jebe/stores/form';
 
-
 const FirstStep = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [items, setItems] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
-  const [onLoadMore, setOnLoadMore] = useState();
-  const [values, setValues] = useState<Selection>(new Set([]));
+  const [value, setValues] = useState<Selection>(new Set([]));
   const [radioJebe, setRadioJebe] = useState<string | null>(null);
+  const { values } = useFormikContext<InitialValues>();
+
+  const {
+    data: countries,
+    isLoading: isLoadingCountries,
+    isFetching: isFetchingCountries,
+  } = api.countries.getAll.useQuery();
+
   const {
     data: states,
     isLoading: isLoadingStates,
     isFetching: isFetchingStates,
-  } = api.states.getAll.useQuery();
+  } = api.states.getAll.useQuery({
+    id: values?.country ?? 0,
+  });
 
   const step = useFormSlice((state) => state.step);
   const processStep = useFormSlice((state) => state.processStep);
-
-  const [, scrollerRef] = useInfiniteScroll({
-    hasMore,
-    isEnabled: isOpen,
-    shouldUseLoader: false,
-    onLoadMore,
-  });
 
   return (
     <div className="flex flex-col w-full">
@@ -44,11 +44,12 @@ const FirstStep = () => {
         <>
           <Field
             type="number"
-            name="cedula"
+            name="identificationCard"
             props={{
               label: "Cédula",
-              id: "cedula",
-              placeholder: "Cédula"
+              id: "identificationCard",
+              placeholder: "Cédula",
+              isRequired: true
             }}
           />
           <Field
@@ -57,39 +58,59 @@ const FirstStep = () => {
             props={{
               label: "Email",
               id: "email",
-              placeholder: "email"
+              placeholder: "email",
+              isRequired: true
             }}
           />
           <div className="flex flex-row justify-between w-full mt-2">
             <Field
               type="text"
-              name="nombre"
+              name="fistname"
               props={{
                 label: "Nombre",
-                id: "name",
-                placeholder: "Nombre"
+                id: "fistname",
+                placeholder: "Nombre",
+                isRequired: true
               }}
             />
             <Field
               type="apellido"
-              name="apellido"
+              name="lastname"
               props={{
                 label: "Apellido",
-                id: "apellido",
+                id: "lastname",
                 placeholder: "apellido",
-                customClassName: "ml-2"
+                customClassName: "ml-2",
+                isRequired: true
               }}
             />
           </div>
-          <DateInput label={"Fecha de nacimiento"} placeholderValue={new CalendarDate(1995, 11, 6)} className="mt-2" />
-          <Input type="number" label="Celular" className="mt-2" />
+          <FieldDate 
+            name="birthDay"
+            props={{
+              label: "Fecha de nacimiento",
+              id: "birthDay",
+              placeholder: "Fecha de nacimiento"
+            }}
+          />
+          <Field 
+            name="cellphone"
+            type="number" 
+            props={{
+              label: "Celular",
+              id: "cellphone",
+              placeholder: "Celular"
+            }}
+          />
           <Field
             type="number"
-            name="contacto"
+            name="contact"
             props={{
               label: "Contacto de emergencia",
-              id: "contacto",
-              placeholder: "Contacto de Emergencia"
+              id: "contact",
+              placeholder: "Contacto de Emergencia",
+              isRequired: true
+              
             }} />
           <Field
             type="text"
@@ -102,47 +123,42 @@ const FirstStep = () => {
         </>
       ) : processStep === 0 && step === 1 ? (
         <>
-          <Select
-            className="mt-2"
-            isLoading={isLoading}
-            items={items}
+         <FieldSelect
+            name="country"
+            isLoading={isLoadingCountries}
             label="Selecciona tu País"
-            placeholder="Ecuador"
-            scrollRef={scrollerRef}
-            selectionMode="single"
-            onOpenChange={setIsOpen}
-          >
-            {(item) => (
-              <SelectItem key={Number(item.state_id)} className="capitalize">
-                {item.state_name}
-              </SelectItem>
-            )}
-          </Select>
-          <Select
+            defaultValue={values?.country}
+            isRequired={true}
+            items={
+              countries?.map((country) => ({
+                id: Number(country.country_id),
+                name: country.country_name
+              })) ?? []
+            }
+          />
+           <FieldSelect
+            name="state"
+            isLoading={isLoadingCountries}
+            isRequired={true}
             label="Selecciona tu provincia"
-            className="mt-2"
-          >
-            <SelectSection title="Costa">
-              <SelectItem key="1">Item 1</SelectItem>
-            </SelectSection>
-          </Select>
-          <Select
-            label="Selecciona tu ciudad"
-            className="mt-2"
-          >
-            <SelectSection title="Costa">
-              <SelectItem key="1">Item 1</SelectItem>
-            </SelectSection>
-          </Select>
-          <Select
-            label="Selecciona tu iglesia"
-            className="mt-2"
-          >
-            <SelectSection title="Costa">
-              <SelectItem key="1">Item 1</SelectItem>
-            </SelectSection>
-          </Select>
-        </>
+            items={
+              states?.map((state) => ({
+                id: Number(state.state_id),
+                name: state.state_name
+              })) ?? []
+            }
+          />
+          <Field
+            type="text"
+            name="city"
+            props={{
+              label: "Ciudad",
+              id: "city",
+              placeholder: "Ciudad",
+              isRequired: true
+            }}
+          />
+          </>
       ) : processStep === 0 && step === 2 && (
         <>
           
@@ -150,7 +166,7 @@ const FirstStep = () => {
             label="¿En que área o áreas de servicio te desarrollas?"
             className="mt-2"
             selectionMode="multiple"
-            selectedKeys={values}
+            selectedKeys={value}
             onSelectionChange={setValues}
           >
             <SelectSection title="Costa">

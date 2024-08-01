@@ -5,24 +5,27 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
 import { RadioGroup, Radio } from "@nextui-org/react";
 
+import FieldSelect from './Inputs/FieldSelect';
+
+import { useFormikContext } from 'formik';
+
+import { api } from '@jebe/trpc/react';
+
 import { useFormSlice } from '@jebe/stores/form';
+import { type InitialValues } from '@jebe/utils/types';
 
 const SecondStep = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [items, setItems] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
-  const [onLoadMore, setOnLoadMore] = useState();
-
+  const { values } = useFormikContext<InitialValues>();
   const step = useFormSlice((state) => state.step);
   const processStep = useFormSlice((state) => state.processStep);
 
-  const [, scrollerRef] = useInfiniteScroll({
-    hasMore,
-    isEnabled: isOpen,
-    shouldUseLoader: false, // We don't want to show the loader at the bottom of the list
-    onLoadMore,
-  })
+  const {
+    data: churches,
+    isLoading: isLoadingChurches,
+    isFetching: isFetchingChurches,
+  } = api.churches.getAll.useQuery({
+    state_id: Number(values?.state) ?? 0,
+  });
 
   return (
     <div className="flex flex-col w-full">
@@ -54,22 +57,18 @@ const SecondStep = () => {
         </Card>
       ) : (
         <>
-          <Select
-            className="mt-2"
-            isLoading={isLoading}
-            items={items}
+            <FieldSelect
+            name="church"
+            isLoading={isLoadingChurches}
             label="Selecciona tu iglesia"
-            placeholder="Ecuador"
-            scrollRef={scrollerRef}
-            selectionMode="single"
-            onOpenChange={setIsOpen}
-          >
-            {(item) => (
-              <SelectItem key={0} className="capitalize">
-                Nothing
-              </SelectItem>
-            )}
-          </Select>
+            isRequired={true}
+            items={
+              churches?.map((church) => ({
+                id: Number(church.church_id),
+                name: church.church_name
+              })) ?? []
+            }
+          />
           <RadioGroup
             label="Seleccione el Congreso al que participara"
           >
