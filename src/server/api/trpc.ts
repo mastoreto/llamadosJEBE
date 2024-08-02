@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /**
  * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
  * 1. You want to modify request context (see Part 1).
@@ -13,6 +14,7 @@ import { ZodError } from "zod";
 
 import { getServerAuthSession } from "@jebe/server/auth";
 import { db } from "@jebe/server/db";
+import Logger from "@jebe/server/logs";
 
 /**
  * 1. CONTEXT
@@ -57,6 +59,26 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
   },
 });
 
+/* Setup Logs */
+
+const loggerMiddleware = t.middleware(async ({path, type, next}) => {
+  Logger.info(`🚀 ${type} - ${path}`);
+  const start = Date.now();
+  const result = await next();
+  const duration = Date.now() - start;
+  Logger.info(`✅ ${type} - ${path} - ${duration}ms`);
+  return result;
+});
+
+const errorLoggerMiddleware = t.middleware(async ({path, type, next}) => {
+  try{
+    return await next();
+  }catch(error){
+    Logger.error(`❌ ${type} - ${path} - ${error}`);
+    throw error;
+  }
+});
+
 /**
  * Create a server-side caller.
  *
@@ -85,7 +107,9 @@ export const createTRPCRouter = t.router;
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure;
+export const publicProcedure = t.procedure
+  .use(loggerMiddleware)
+  .use(errorLoggerMiddleware);
 
 /**
  * Protected (authenticated) procedure
@@ -95,7 +119,10 @@ export const publicProcedure = t.procedure;
  *
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
+export const protectedProcedure = t.procedure
+.use(loggerMiddleware)
+.use(errorLoggerMiddleware)
+.use(({ ctx, next }) => {
   if (!ctx.session || !ctx.session.user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
