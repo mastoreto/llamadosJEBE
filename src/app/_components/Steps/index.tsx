@@ -6,13 +6,16 @@ import FirstStep from './FirstStep';
 import SecondStep from './SecondStep';
 import ThirdStep from './ThirdStep';
 import FourthStep from './FourthStep';
+import FiveStep from './FiveStep';
 
 import { useFormSlice } from '@jebe/stores/form';
+import { InitialValues } from '../../../utils/types';
+
 
 const Steps = () => {
     const processStep = useFormSlice((state) => state.processStep);
 
-    const { submitForm, validateForm, setTouched, isValid } = useFormikContext();
+    const { submitForm, validateForm, setTouched, isValid, values } = useFormikContext<InitialValues>();
     
     useEffect(() => {
         try{
@@ -29,14 +32,16 @@ const Steps = () => {
         }
     }
     , [isValid, setTouched, submitForm, validateForm]);
+
     
     return (
         <>
             {
                 processStep === 0 ? <FirstStep /> : 
-                processStep === 1 ? <SecondStep /> :
+                processStep === 1 && values.congressParticipated == "si" ? <SecondStep /> :
                 processStep === 2 ? <ThirdStep /> :
-                processStep === 3 ? <FourthStep/> : null  
+                processStep === 3 ? <FourthStep/> : 
+                processStep === 4 && <FiveStep />  
             }
         </>
     )

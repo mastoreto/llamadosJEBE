@@ -18,4 +18,9 @@ export type InitialValues = {
     state: string;
     city: string;
     church: string;
+    areas: string;
+    recurrentParticipant: string;
+    congressParticipated: string;
+    foodPackage: string;
+    hotelPackage: string;
 }

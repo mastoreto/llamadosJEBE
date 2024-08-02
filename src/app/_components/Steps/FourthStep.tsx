@@ -1,22 +1,22 @@
 import React from 'react';
 
-import { Card, CardHeader, CardBody, CardFooter, Divider } from "@nextui-org/react";
+import {ScrollShadow} from "@nextui-org/react";
 
 const FourthStep: React.FC = () => {
   return (
-    <div>
-      <p>
+    <ScrollShadow className="w-full h-[500px]">
+      <h3 className='font-bold text-2xl my-5'>
         1. INSCRIPCIÓN.
-      </p>
+      </h3>
       <p>
         Al momento de acreditarse en el CONGRESO NACIONAL JEBE 2024 LLAMADOS deberán presentar su comprobante de pago y Documento de Identidad. La inscripción tendrá un carácter personal e intransferible y únicamente será válida para los CONGRESO NACIONAL JEBE 2024 LLAMADOS en las ciudades de: Machala, Latacunga y el Tena.
       </p>
       <p>
         JEBE (como organización encargada) se reserva el derecho de rechazar cualquier inscripción que no cumpla las presentes bases y los requisitos enunciados al comienzo.
       </p>
-      <p>
+      <h3 className='font-bold text-2xl my-5'>
         2. LLEGADA, PERMANENCIA Y SALIDA DEL PREDIO DE LO CONGRESO REGIONALES JEBE 2024.
-      </p>
+      </h3>
       <p>
         Los participantes a los CONGRESO NACIONAL JEBE 2024 LLAMADOS podrán llegar al predio donde se realiza el evento desde el Viernes 1 de Noviembre del 2024 (con su respectivo anuncio y reserva) desde las 07:00 hs.
       </p>
@@ -24,39 +24,39 @@ const FourthStep: React.FC = () => {
         Todo participante que seleccione la opción de hospedaje gratis que ofrezca la JEBE, debe sujetarse a las reglas que imponga la organización, caso contrario será retirado del lugar hospedado. Excepcionalmente, se pueden autorizar salidas, las cuales, deben estar expresamente autorizadas por JEBE.
         El día Lunes 4 de Mayo del 2024 concluye el evento a las 13h00 con el Almuerzo, luego del cual, los participantes deben desalojar el predio.
       </p>
-      <p>
+      <h3 className='font-bold text-2xl my-5'>
         3. PROTECCIÓN DE DATOS DE CARÁCTER PERSONAL.
-      </p>
+      </h3>
       <p>
         Con la aceptación de las presentes bases, el asistente consiente y autoriza expresamente a JEBE para que trate sus datos de carácter personal (y sensibles) según las finalidades expuestas en el presente documento.
       </p>
-      <p>
+      <h3 className='font-bold text-2xl my-5'>
         4. DERECHOS DE IMAGEN.
-      </p>
+      </h3>
       <p>
         Al inscribirse a los CONGRESO NACIONAL JEBE 2024 LLAMADOS la persona ratifica su consentimiento expreso en las bases de participación en el evento, que incluyen disposiciones relativas a la cesión gratuita e indefinida de derechos de imagen y de propiedad intelectual e industrial sobre las fotografías y vídeos grabados, y los trabajos desarrollados durante los eventos, con el fin de promocionar e informar sobre JEBE y las actividades que éste realiza en conformidad a sus estatutos y normativa, junto a otros actos que se usen para llevar a cabo su visión y misión organizacional.
       </p>
-      <p>
+      <h3 className='font-bold text-2xl my-5'>
         5. PAGO Y DEVOLUCIÓN DE RESERVA.
-      </p>
+      </h3>
       <p>
         El pago realizado para la reservación de los CONGRESO NACIONAL JEBE 2024 LLAMADOS no podrá ser reembolsada. De forma excepcional y fundada puede ser cedida a otra persona, informado 10 días antes al evento y solicitando la aprobación previa de DIRECTIVA JEBE. Si el pago fue por el total del evento, y luego no puedes asistir, se te reintegrará el valor excedente a la reserva. El plazo para hacer las solicitudes respectivas es antes del 20/10/2024.
       </p>
-      <p>
+      <h3 className='font-bold text-2xl my-5'>
         6. CONSUMO DE ALCOHOL Y DROGAS.
-      </p>
+      </h3>
       <p>
         El consumo, producción, venta y tráfico de alcohol, cigarrillos, drogas o algún otro tipo de estupefaciente o sustancia ilícita está prohibido durante los CONGRESO NACIONAL JEBE 2024 LLAMADOS y en todas las actividades organizadas por JEBE.
       </p>
-      <p>
+      <h3 className='font-bold text-2xl my-5'>
         7. MENORES DE EDAD.
-      </p>
+      </h3>
       <p>
         Es obligatorio la autorización previa de sus representantes legales, quienes serán considerados responsables de todos sus actos. La inscripción a los CONGRESO NACIONAL JEBE 2024 LLAMADOS será validada después de presentar o enviar la carta de autorización de sus padres (o representantes legales).
       </p>
-      <p>
+      <h3 className='font-bold text-2xl my-5'>
         8. COMPORTAMIENTO DURANTE #SOMOSJEBE.
-      </p>
+      </h3>
       <p>
         En el evento habrá diferentes grupos de asistentes (participantes, voluntarios, oradores, equipo coordinador) diferenciados por una pulsera o credencial de color, lo que le dará acceso a ciertos sectores de las instalaciones. Los asistentes se comprometen a usar durante los CONGRESO NACIONAL JEBE 2024 LLAMADOS su pulsera y colgante respectivo.
       </p>
@@ -68,9 +68,9 @@ const FourthStep: React.FC = () => {
         Los asistentes se comprometen a cuidar las instalaciones y mantener la higiene del lugar. También se comprometen a reparar económicamente los daños provocados tanto a las instalaciones cómo también a la propiedad de terceros.
         Entendiendo que es un evento cuyo fin es la capacitación bíblica, espiritual y misionera los asistentes se comprometen a asistir con una búsqueda de Dios y un corazón enfocado en su Misión dejando de lado otros intereses secundarios.
       </p>
-      <p>
+      <h3 className='font-bold text-2xl my-5'>
         9. RESPONSABILIDAD INDIVIDUAL.
-      </p>
+      </h3>
       <p>
         Cada participante debe velar y cuidar sus pertenencias, JEBE no se hace responsable de acciones externas ejercidas o ejecutadas por terceros distintos a JEBE durante los CONGRESO NACIONAL JEBE 2024 LLAMADOS que pudieran provocar algún daño, pérdida o perjuicio al asistente.
       </p>
@@ -86,7 +86,10 @@ const FourthStep: React.FC = () => {
       <p>
         ¡GRACIAS POR LLENAR EL FORMULARIO!
       </p>
-    </div>
+      <p className='font-bold text-red-600 text-2xl my-5'>
+        Al dar click en Confirmar, estas aceptando los terminos y condiciones
+      </p>
+    </ScrollShadow>
   );
     
 }

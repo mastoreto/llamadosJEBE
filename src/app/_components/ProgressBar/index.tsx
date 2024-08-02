@@ -28,7 +28,7 @@ const WizardProgressComponent: React.FC<WizardProgress> = ({ processStep, steps 
                     >
                       <span
                         className={`${
-                          processStep > index ? 'text-white' : 'text-yellow-sigueme'
+                          processStep > index ? 'text-white' : 'text-black'
                         } text-center w-full flex items-center justify-center`}
                       >
                         {processStep > index ? (
@@ -63,19 +63,19 @@ const WizardProgressComponent: React.FC<WizardProgress> = ({ processStep, steps 
 
                       <div
                         className={`${
-                          processStep > index || processStep === steps.length - 1
+                          processStep > index - 1 || processStep === steps.length - 1
                             ? 'bg-green-500'
                             : 'bg-purpure-sigueme-1 border-2 border-purpure-sigueme-1 rounded-full'
                         } w-10 h-10 mx-auto rounded-full text-lg flex items-center`}
                       >
                         <span
                           className={`${
-                            processStep > index || processStep === steps.length - 1
+                            processStep > index - 1 || processStep === steps.length - 1
                               ? 'text-white'
-                              : 'text-yellow-sigueme'
+                              : 'text-black'
                           } text-center w-full flex items-center justify-center`}
                         >
-                          {processStep > index || processStep === steps.length - 1 ? (
+                          {processStep > index - 1 || processStep === steps.length - 1 ? (
                             <IconConstructorComponent iconType={'check'} />
                           ) : (
                             <IconConstructorComponent iconType={step.icon} />

@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React,{useMemo} from 'react';
 
 import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Image } from "@nextui-org/react";
-import { Select, SelectItem } from "@nextui-org/select";
-import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
 import { RadioGroup, Radio } from "@nextui-org/react";
 
 import FieldSelect from './Inputs/FieldSelect';
 
-import { useFormikContext } from 'formik';
+import { useFormikContext, useField } from 'formik';
 
 import { api } from '@jebe/trpc/react';
 
@@ -18,14 +16,16 @@ const SecondStep = () => {
   const { values } = useFormikContext<InitialValues>();
   const step = useFormSlice((state) => state.step);
   const processStep = useFormSlice((state) => state.processStep);
+  const [field,meta] = useField('church');
 
-  const {
-    data: churches,
-    isLoading: isLoadingChurches,
-    isFetching: isFetchingChurches,
-  } = api.churches.getAll.useQuery({
-    state_id: Number(values?.state) ?? 0,
-  });
+ 
+  const isInvalid  = useMemo(() => {
+    if (meta.touched && meta.error) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [meta.touched, meta.error]);
 
   return (
     <div className="flex flex-col w-full">
@@ -57,20 +57,11 @@ const SecondStep = () => {
         </Card>
       ) : (
         <>
-            <FieldSelect
-            name="church"
-            isLoading={isLoadingChurches}
-            label="Selecciona tu iglesia"
-            isRequired={true}
-            items={
-              churches?.map((church) => ({
-                id: Number(church.church_id),
-                name: church.church_name
-              })) ?? []
-            }
-          />
           <RadioGroup
             label="Seleccione el Congreso al que participara"
+            isInvalid={isInvalid}
+            errorMessage={meta.error}
+            {...field}
           >
             <Radio value="buenos-aires">Copa JEBE</Radio>
             <Radio value="sydney">Aniversario JEBE</Radio>

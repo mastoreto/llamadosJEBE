@@ -5,6 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import { Formik, Form } from "formik";
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/react";
@@ -15,7 +16,7 @@ import Controls from "./_components/Controls";
 import Steps from "./_components/Steps";
 
 import { useFormSlice } from "@jebe/stores/form";
-import { getValidationProcess } from "@jebe/utils/validations";
+import { getValidationProcess, numberOfSteps } from "@jebe/utils/validations";
 import type { InitialValues } from "@jebe/utils/types";
 
 const page = () => {
@@ -40,7 +41,6 @@ const page = () => {
     }
   ];
 
-
   const initialValues: InitialValues = {
     identificationCard: "",
     email: "",
@@ -57,7 +57,12 @@ const page = () => {
     country: "",
     state: "",
     city: "",
-    church: ""
+    church: "",
+    areas: "",
+    recurrentParticipant: "",
+    congressParticipated: "",
+    foodPackage: "",
+    hotelPackage: ""
   }
 
   return (
@@ -66,15 +71,16 @@ const page = () => {
       <Formik
               initialValues={initialValues}
               validationSchema={getValidationProcess(processStep, step)}
-              onSubmit={(values) => console.log(values)}
+              onSubmit={(values) => {
+                console.log(values)
+              }}
             >
         <Card 
           fullWidth
-          className=""
         >
           <CardHeader className="flex flex-col">
             <ProgressBar processStep={processStep} steps={steps} />
-            <p>ProcessStep: {processStep} | Step: {step}</p>
+            <p>ProcessStep: {processStep}/{numberOfSteps-1} | Step: {step}</p>
           </CardHeader>
           <CardBody>
           
