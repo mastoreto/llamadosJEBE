@@ -8,6 +8,7 @@ import { useFormikContext } from 'formik';
 import { useFormSlice } from '@jebe/stores/form';
 import type { InitialValues } from '@jebe/utils/types';
 import {getNumberOfSubSteps, numberOfSteps} from '@jebe/utils/validations';
+import { api } from '@jebe/trpc/react';
 
 const Controls = () => {
     const step = useFormSlice((state) => state.step);
@@ -19,7 +20,12 @@ const Controls = () => {
     const setStep = useFormSlice((state) => state.setStep);
     const setProcessStep = useFormSlice((state) => state.setProcessStep);
     const { submitForm, validateForm, setTouched, isValid, values } = useFormikContext<InitialValues>();
-
+    const {
+      mutate: createReservation,
+      data: reservation,
+      error: reservationError,
+    } = api.reservation.createReservation.useMutation({});
+    
     useEffect(() => {
       submitForm().then(() => {
         validateForm();
@@ -28,25 +34,37 @@ const Controls = () => {
       
     }, [isValid, setTouched, submitForm, validateForm, processStep, step]);
 
-    const handleSubmit = async (): Promise<void> => {
-      try{
-        await submitForm();
-        if(isValid){
-          await validateForm();
-          await setTouched({});
-          nextProcessStep();
-        }
-      }
-      catch(error){
-        console.log(error)
-      }
+    const reservationData = {
+      identificationCard: String(values.identificationCard),
+      email: values.email,
+      firstname: values.firstname,
+      lastname: values.lastname,
+      birthDay: `${values.birthDay.year}-${values.birthDay.month}-${values.birthDay.day}`,
+      cellphone: String(values.cellphone),
+      discopat: values.discopat,
+      contact: String(values.contact),
+      country: values.country,
+      state: values.state,
+      city: values.city,
+      church: values.church,
+      areas: values.areas,
+      recurrentParticipant: values.recurrentParticipant,
+      congressParticipated: values.congressParticipated,
+      foodPackage: values.foodPackage,
+      hotelPackage: values.hotelPackage
     }
+
+
+    const handleSubmit = ()=> {
+      createReservation(reservationData);
+      console.log(reservation);
+      console.log(reservationError);
+    };
 
     const handleNextStep = async (): Promise<void> => {
       try{
         if(step == getNumberOfSubSteps(processStep)-1){
          await submitForm();
-         console.log(isValid);
          if(isValid){
            await validateForm();
            await setTouched({});

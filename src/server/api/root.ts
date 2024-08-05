@@ -1,4 +1,4 @@
-import { countriesRouter, statesRouter, churchesRouter } from "@jebe/server/api/routers";
+import { countriesRouter, statesRouter, churchesRouter, reservationRouter } from "@jebe/server/api/routers";
 import { createCallerFactory, createTRPCRouter } from "@jebe/server/api/trpc";
 
 /**
@@ -10,6 +10,7 @@ export const appRouter = createTRPCRouter({
   countries: countriesRouter,
   states: statesRouter,
   churches: churchesRouter,
+  reservation: reservationRouter,
 });
 
 // export type definition of API

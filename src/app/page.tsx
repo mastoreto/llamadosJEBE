@@ -54,7 +54,7 @@ const page = () => {
     cellphone: "",
     contact: "",
     discopat: "",
-    country: "",
+    country: "56",
     state: "",
     city: "",
     church: "",

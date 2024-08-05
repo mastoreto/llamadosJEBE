@@ -1,0 +1,138 @@
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-02T17:55:43.732Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-02T17:55:43.735Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-02T17:55:43.737Z"}
+{"level":"info","message":"✅ query - countries.getAll - 36ms","timestamp":"2024-08-02T17:55:43.771Z"}
+{"level":"info","message":"✅ query - churches.getAll - 50ms","timestamp":"2024-08-02T17:55:43.787Z"}
+{"level":"info","message":"✅ query - states.getAll - 61ms","timestamp":"2024-08-02T17:55:43.797Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-02T17:56:49.174Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-02T17:56:49.176Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-02T17:56:49.178Z"}
+{"level":"info","message":"✅ query - churches.getAll - 11ms","timestamp":"2024-08-02T17:56:49.189Z"}
+{"level":"info","message":"✅ query - countries.getAll - 16ms","timestamp":"2024-08-02T17:56:49.191Z"}
+{"level":"info","message":"✅ query - states.getAll - 26ms","timestamp":"2024-08-02T17:56:49.202Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-02T17:57:28.888Z"}
+{"level":"info","message":"✅ query - churches.getAll - 7ms","timestamp":"2024-08-02T17:57:28.895Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-02T17:57:31.012Z"}
+{"level":"info","message":"✅ query - churches.getAll - 14ms","timestamp":"2024-08-02T17:57:31.026Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-02T17:58:11.028Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 36ms","timestamp":"2024-08-02T17:58:11.065Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-02T20:08:02.449Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-02T20:08:02.451Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-02T20:08:02.452Z"}
+{"level":"info","message":"✅ query - states.getAll - 418ms","timestamp":"2024-08-02T20:08:02.869Z"}
+{"level":"info","message":"✅ query - countries.getAll - 446ms","timestamp":"2024-08-02T20:08:02.896Z"}
+{"level":"info","message":"✅ query - churches.getAll - 481ms","timestamp":"2024-08-02T20:08:02.933Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-02T20:14:24.885Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-02T20:14:24.888Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-02T20:14:24.889Z"}
+{"level":"info","message":"✅ query - countries.getAll - 46ms","timestamp":"2024-08-02T20:14:24.933Z"}
+{"level":"info","message":"✅ query - churches.getAll - 72ms","timestamp":"2024-08-02T20:14:24.962Z"}
+{"level":"info","message":"✅ query - states.getAll - 104ms","timestamp":"2024-08-02T20:14:24.992Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-02T20:15:05.740Z"}
+{"level":"info","message":"✅ query - churches.getAll - 6ms","timestamp":"2024-08-02T20:15:05.746Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-02T20:15:48.949Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-02T20:15:48.951Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-02T20:15:48.953Z"}
+{"level":"info","message":"✅ query - countries.getAll - 12ms","timestamp":"2024-08-02T20:15:48.963Z"}
+{"level":"info","message":"✅ query - states.getAll - 56ms","timestamp":"2024-08-02T20:15:49.007Z"}
+{"level":"info","message":"✅ query - churches.getAll - 66ms","timestamp":"2024-08-02T20:15:49.019Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-02T20:15:56.955Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-02T20:15:56.956Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-02T20:15:56.956Z"}
+{"level":"info","message":"✅ query - countries.getAll - 6ms","timestamp":"2024-08-02T20:15:56.962Z"}
+{"level":"info","message":"✅ query - churches.getAll - 18ms","timestamp":"2024-08-02T20:15:56.975Z"}
+{"level":"info","message":"✅ query - states.getAll - 33ms","timestamp":"2024-08-02T20:15:56.989Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-02T20:16:47.216Z"}
+{"level":"info","message":"✅ query - churches.getAll - 10ms","timestamp":"2024-08-02T20:16:47.226Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-02T20:18:49.402Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 45ms","timestamp":"2024-08-02T20:18:49.448Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-02T20:21:50.906Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 48ms","timestamp":"2024-08-02T20:21:50.955Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-05T13:13:55.749Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-05T13:13:55.751Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T13:13:55.752Z"}
+{"level":"info","message":"✅ query - countries.getAll - 3313ms","timestamp":"2024-08-05T13:13:59.063Z"}
+{"level":"info","message":"✅ query - states.getAll - 3395ms","timestamp":"2024-08-05T13:13:59.147Z"}
+{"level":"info","message":"✅ query - churches.getAll - 3409ms","timestamp":"2024-08-05T13:13:59.162Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-05T13:14:01.340Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-05T13:14:01.340Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T13:14:01.340Z"}
+{"level":"info","message":"✅ query - states.getAll - 4ms","timestamp":"2024-08-05T13:14:01.344Z"}
+{"level":"info","message":"✅ query - countries.getAll - 6ms","timestamp":"2024-08-05T13:14:01.346Z"}
+{"level":"info","message":"✅ query - churches.getAll - 15ms","timestamp":"2024-08-05T13:14:01.356Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T13:14:43.516Z"}
+{"level":"info","message":"✅ query - churches.getAll - 7ms","timestamp":"2024-08-05T13:14:43.524Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T13:15:07.351Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 427ms","timestamp":"2024-08-05T13:15:07.778Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T13:16:57.374Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 42ms","timestamp":"2024-08-05T13:16:57.418Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T13:17:24.776Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 753ms","timestamp":"2024-08-05T13:17:25.531Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-05T13:40:32.693Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-05T13:40:32.696Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T13:40:32.697Z"}
+{"level":"info","message":"✅ query - countries.getAll - 32ms","timestamp":"2024-08-05T13:40:32.727Z"}
+{"level":"info","message":"✅ query - churches.getAll - 46ms","timestamp":"2024-08-05T13:40:32.743Z"}
+{"level":"info","message":"✅ query - states.getAll - 54ms","timestamp":"2024-08-05T13:40:32.750Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-05T13:44:21.747Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-05T13:44:21.749Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T13:44:21.751Z"}
+{"level":"info","message":"✅ query - countries.getAll - 40ms","timestamp":"2024-08-05T13:44:21.789Z"}
+{"level":"info","message":"✅ query - states.getAll - 59ms","timestamp":"2024-08-05T13:44:21.809Z"}
+{"level":"info","message":"✅ query - churches.getAll - 62ms","timestamp":"2024-08-05T13:44:21.813Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-05T13:44:23.670Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-05T13:44:23.670Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T13:44:23.671Z"}
+{"level":"info","message":"✅ query - countries.getAll - 10ms","timestamp":"2024-08-05T13:44:23.680Z"}
+{"level":"info","message":"✅ query - churches.getAll - 22ms","timestamp":"2024-08-05T13:44:23.693Z"}
+{"level":"info","message":"✅ query - states.getAll - 30ms","timestamp":"2024-08-05T13:44:23.701Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-05T13:46:42.390Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-05T13:46:42.392Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T13:46:42.393Z"}
+{"level":"info","message":"✅ query - countries.getAll - 10ms","timestamp":"2024-08-05T13:46:42.402Z"}
+{"level":"info","message":"✅ query - churches.getAll - 20ms","timestamp":"2024-08-05T13:46:42.413Z"}
+{"level":"info","message":"✅ query - states.getAll - 27ms","timestamp":"2024-08-05T13:46:42.419Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-05T13:46:46.718Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-05T13:46:46.719Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T13:46:46.719Z"}
+{"level":"info","message":"✅ query - countries.getAll - 6ms","timestamp":"2024-08-05T13:46:46.725Z"}
+{"level":"info","message":"✅ query - churches.getAll - 12ms","timestamp":"2024-08-05T13:46:46.731Z"}
+{"level":"info","message":"✅ query - states.getAll - 18ms","timestamp":"2024-08-05T13:46:46.737Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-05T13:47:03.850Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-05T13:47:03.853Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T13:47:03.854Z"}
+{"level":"info","message":"✅ query - countries.getAll - 35ms","timestamp":"2024-08-05T13:47:03.887Z"}
+{"level":"info","message":"✅ query - churches.getAll - 58ms","timestamp":"2024-08-05T13:47:03.912Z"}
+{"level":"info","message":"✅ query - states.getAll - 64ms","timestamp":"2024-08-05T13:47:03.917Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T13:47:27.340Z"}
+{"level":"info","message":"✅ query - churches.getAll - 13ms","timestamp":"2024-08-05T13:47:27.353Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T13:47:49.889Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 488ms","timestamp":"2024-08-05T13:47:50.377Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T14:45:53.235Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 59ms","timestamp":"2024-08-05T14:45:53.296Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T14:51:44.467Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 115ms","timestamp":"2024-08-05T14:51:44.584Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T14:55:41.155Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 429ms","timestamp":"2024-08-05T14:55:41.585Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T15:30:31.343Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 215ms","timestamp":"2024-08-05T15:30:31.559Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T15:36:05.184Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 70ms","timestamp":"2024-08-05T15:36:05.255Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-05T15:37:32.465Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-05T15:37:32.467Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T15:37:32.468Z"}
+{"level":"info","message":"✅ query - countries.getAll - 31ms","timestamp":"2024-08-05T15:37:32.497Z"}
+{"level":"info","message":"✅ query - churches.getAll - 41ms","timestamp":"2024-08-05T15:37:32.509Z"}
+{"level":"info","message":"✅ query - states.getAll - 48ms","timestamp":"2024-08-05T15:37:32.515Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T15:38:02.377Z"}
+{"level":"info","message":"✅ query - churches.getAll - 8ms","timestamp":"2024-08-05T15:38:02.386Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T15:38:24.904Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 37ms","timestamp":"2024-08-05T15:38:24.941Z"}
+{"level":"info","message":"🚀 query - countries.getAll","timestamp":"2024-08-05T15:38:34.265Z"}
+{"level":"info","message":"🚀 query - states.getAll","timestamp":"2024-08-05T15:38:34.265Z"}
+{"level":"info","message":"🚀 query - churches.getAll","timestamp":"2024-08-05T15:38:34.266Z"}
+{"level":"info","message":"✅ query - countries.getAll - 7ms","timestamp":"2024-08-05T15:38:34.272Z"}
+{"level":"info","message":"✅ query - states.getAll - 17ms","timestamp":"2024-08-05T15:38:34.282Z"}
+{"level":"info","message":"✅ query - churches.getAll - 23ms","timestamp":"2024-08-05T15:38:34.289Z"}
+{"level":"info","message":"🚀 mutation - reservation.createReservation","timestamp":"2024-08-05T15:38:45.580Z"}
+{"level":"info","message":"✅ mutation - reservation.createReservation - 273ms","timestamp":"2024-08-05T15:38:45.854Z"}

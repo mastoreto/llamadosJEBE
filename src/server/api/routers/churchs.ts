@@ -3,7 +3,6 @@ import { z } from "zod";
 
 import {
   createTRPCRouter,
-  protectedProcedure,
   publicProcedure,
 } from "@jebe/server/api/trpc";
 
@@ -16,7 +15,7 @@ export const churchesRouter = createTRPCRouter({
     const { state_id } = input;
     const churches = await ctx.db.church.findMany({
       where: {
-        church_state_id: state_id
+        church_state_id: BigInt(state_id)
       },
       orderBy: {
         church_name: 'asc'

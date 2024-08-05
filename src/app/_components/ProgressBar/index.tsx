@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, {Fragment} from 'react';
 import IconConstructorComponent from './IconConstructorComponent';
 
 interface WizardProgress {
@@ -11,13 +11,12 @@ interface WizardProgress {
 
 const WizardProgressComponent: React.FC<WizardProgress> = ({ processStep, steps }) => {
   return (
-    <>
       <div className='w-full py-6'>
         <div className='flex'>
           {steps.map((step: {icon: string}, index: number) => (
-            <>
+            <Fragment key={`progress-element-${index}`}>
               {index === 0 ? (
-                <div className='w-1/3' key={`progress-element-${index}`}>
+                <div className='w-1/3'>
                   <div className='relative mb-2'>
                     <div
                       className={`${
@@ -86,11 +85,10 @@ const WizardProgressComponent: React.FC<WizardProgress> = ({ processStep, steps 
                   </div>
                 </>
               )}
-            </>
+            </Fragment>
           ))}
         </div>
       </div>
-    </>
   );
 };
 

@@ -30,13 +30,11 @@ const FirstStep = () => {
   const {
     data: countries,
     isLoading: isLoadingCountries,
-    isFetching: isFetchingCountries,
   } = api.countries.getAll.useQuery();
 
   const {
     data: states,
     isLoading: isLoadingStates,
-    isFetching: isFetchingStates,
   } = api.states.getAll.useQuery({
     id: values?.country ?? 0,
   });
@@ -44,7 +42,6 @@ const FirstStep = () => {
   const {
     data: churches,
     isLoading: isLoadingChurches,
-    isFetching: isFetchingChurches,
   } = api.churches.getAll.useQuery({
     state_id: Number(values?.state) ?? 0,
   });
@@ -58,7 +55,6 @@ const FirstStep = () => {
     setValues(e);
     
     await setFieldValue('areas',values);
-    console.log(values)
   };
 
   const onChangeRadio = async (value: string) => {
@@ -94,7 +90,6 @@ const FirstStep = () => {
       return false;
     }
   },[metaCheckbox.error,metaCheckbox.touched]);
-
 
 
   return (
@@ -182,22 +177,22 @@ const FirstStep = () => {
         </>
       ) : processStep === 0 && step === 1 ? (
         <>
-         <FieldSelect
-            name="country"
-            isLoading={isLoadingCountries}
-            label="Selecciona tu País"
-            defaultValue={values?.country}
-            isRequired={true}
-            items={
-              countries?.map((country) => ({
-                id: Number(country.country_id),
-                name: country.country_name
-              })) ?? []
-            }
-          />
+        <FieldSelect
+          name="country"
+          isLoading={isLoadingCountries}
+          label="Selecciona tu País"
+          defaultValue={[values?.country]}
+          isRequired={true}
+          items={
+            countries?.map((country) => ({
+              id: Number(country.country_id),
+              name: country.country_name
+            })) ?? []
+          }
+        />
            <FieldSelect
             name="state"
-            isLoading={isLoadingCountries}
+            isLoading={isLoadingStates}
             isRequired={true}
             label="Selecciona tu provincia"
             items={

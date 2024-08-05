@@ -280,7 +280,7 @@ model ReservationStatus {
 model Reservation {
   reservation_id                   BigInt   @id @unique @default(autoincrement()) @db.BigInt
   reservation_userId               BigInt   @unique
-  reservation_activity_id          BigInt
+  reservation_event_id             BigInt
   reservation_date_time_entry      DateTime
   reservation_date_time_departure  DateTime
   reservation_accomodation_type_id BigInt
@@ -290,13 +290,25 @@ model Reservation {
   reservation_deposit_amount       Int
   reservation_amount               Int
 
-  event                       Event                     @relation(fields: [reservation_activity_id], references: [event_id])
+  event                       Event                     @relation(fields: [reservation_event_id], references: [event_id])
   accomodation_type           AccomodationType             @relation(fields: [reservation_accomodation_type_id], references: [accomodaton_type_id])
   reservationStatus           ReservationStatus            @relation(fields: [reservation_status_id], references: [reservation_status_id])
   user                        User                         @relation(fields: [reservation_userId], references: [userId])
   reservationGeneratePayment  ReservationGeneratePayment[]
   Accomodation                Accomodation?                @relation(fields: [accomodationAccomodation_id], references: [accomodation_id])
   accomodationAccomodation_id BigInt?                      @db.BigInt
+  AdditionalAttribute AdditionalAttribute[]
+}
+
+model AdditionalAttribute {
+  attribute_id             BigInt      @id @default(autoincrement()) @db.BigInt
+  attribute_reservation_id BigInt
+  attribute_key            String
+  value          String
+
+  reservation    Reservation @relation(fields: [attribute_reservation_id], references: [reservation_id])
+
+  @@index([attribute_reservation_id])
 }
 
 model ReservationGeneratePayment {

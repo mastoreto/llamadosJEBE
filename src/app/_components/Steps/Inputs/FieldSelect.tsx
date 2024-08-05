@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
-import { Select, SelectSection, SelectItem, type Selection } from "@nextui-org/react";
-import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
+"use client";
+import React, { useMemo } from 'react';
+import { Select, SelectItem } from "@nextui-org/react";
 import { useField } from 'formik';
 
 import type { SelectData } from '@jebe/utils/types';
@@ -8,7 +8,7 @@ import type { SelectData } from '@jebe/utils/types';
 interface FieldSelectProps {
     label: string;
     name: string;
-    defaultValue?: string;
+    defaultValue?: string[];
     isLoading: boolean;
     items: Array<SelectData>;
     isRequired?: boolean;
@@ -26,14 +26,13 @@ const FieldSelect: React.FC<FieldSelectProps> = ({ name, isLoading, items, label
     }
   }, [meta.touched, meta.error]);
 
-
   return (
     <Select
     items={items}
     isLoading={isLoading}
     isInvalid={isInvalid}
     label={label}
-    defaultSelectedKeys={defaultValue ? [defaultValue] : ["56"]}
+    defaultSelectedKeys={defaultValue}
     selectionMode="single"
     {...field}
     isRequired={isRequired}
