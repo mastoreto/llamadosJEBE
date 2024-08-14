@@ -5,13 +5,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 "use client";
-import { useState } from "react";
 import Image from "next/image";
 import { Formik, Form } from "formik";
-import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/react";
+import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import { CalendarDate } from "@internationalized/date";
 import ProgressBar from "./_components/ProgressBar";
 import Controls from "./_components/Controls";
+import { Button, User } from "@nextui-org/react";
+import { FaGoogle, FaXmark, FaMinus } from "react-icons/fa6";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 import Steps from "./_components/Steps";
 
@@ -19,7 +21,8 @@ import { useFormSlice } from "@jebe/stores/form";
 import { getValidationProcess, numberOfSteps } from "@jebe/utils/validations";
 import type { InitialValues } from "@jebe/utils/types";
 
-const page = () => {
+const Page = () => {
+  const { data: session } = useSession();
   const processStep = useFormSlice((state) => state.processStep);
   const step = useFormSlice((state) => state.step);
 
@@ -28,7 +31,7 @@ const page = () => {
       icon: "user",
     },
     {
-      icon: "church"
+      icon: "church",
     },
     {
       icon: "ticket",
@@ -38,7 +41,7 @@ const page = () => {
     },
     {
       icon: "clipboard",
-    }
+    },
   ];
 
   const initialValues: InitialValues = {
@@ -62,40 +65,78 @@ const page = () => {
     recurrentParticipant: "",
     congressParticipated: "",
     foodPackage: "",
-    hotelPackage: ""
-  }
+    hotelPackage: "",
+  };
+
+  console.log(session);
 
   return (
-    <section className='flex flex-row w-full'>
-      <div className='w-1/2 h-full p-10 flex justify-center items-center'>
-      <Formik
-              initialValues={initialValues}
-              validationSchema={getValidationProcess(processStep, step)}
-              onSubmit={(values) => {
-                console.log(values)
-              }}
-            >
-        <Card 
-          fullWidth
+    <section className="flex flex-row w-full">
+      <div className="w-1/2 h-full p-10 flex justify-center items-center">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={getValidationProcess(processStep, step)}
+          onSubmit={(values) => {
+            console.log(values);
+          }}
         >
-          <CardHeader className="flex flex-col">
-            <ProgressBar processStep={processStep} steps={steps} />
-            <p>ProcessStep: {processStep}/{numberOfSteps-1} | Step: {step}</p>
-          </CardHeader>
-          <CardBody>
-          
+          <Card fullWidth>
+            <CardHeader className="flex flex-col">
+              <ProgressBar processStep={processStep} steps={steps} />
+              <p className="hidden">
+                ProcessStep: {processStep}/{numberOfSteps - 1} | Step: {step}
+              </p>
+            </CardHeader>
+            <CardBody>
+              {session ? (
+                <div className="flex flex-row justify-center items-center">
+                  <User
+                    as="span"
+                    avatarProps={{
+                      isBordered: true,
+                      color: "success",
+                      src: `${session.user.image}`,
+                    }}
+                    className="transition-transform"
+                    description="@llamados2024"
+                    name={session.user.fullName}
+                  />
+                  <FaMinus className="mx-5 font-bold" />
+                  <Button
+                  color="danger"
+                  variant="bordered"
+                  className="font-bold hover:bg-red-500 hover:text-white"
+                  startContent={<FaXmark />}
+                  onClick={() =>
+                    signOut({ callbackUrl: "http://localhost:3000" })
+                  }
+                >
+                  Salir
+                </Button>
+                </div>
+              ) : (
+                <Button
+                  color="success"
+                  className="text-white font-bold"
+                  startContent={<FaGoogle />}
+                  onClick={() =>
+                    signIn("google", { callbackUrl: "http://localhost:3000" })
+                  }
+                >
+                  Registrarse con Google
+                </Button>
+              )}
               <Form>
-               <Steps />
+                <Steps />
               </Form>
-        
-          </CardBody>
-          <CardFooter>
-           <Controls />
-          </CardFooter>
-        </Card>
+            </CardBody>
+            <CardFooter>
+              <Controls />
+            </CardFooter>
+          </Card>
         </Formik>
       </div>
-      <div className='w-1/2 h-full flex justify-center items-center flex-col'>
+      <div className="w-1/2 h-full flex justify-center items-center flex-col">
         <Image
           src="/images/llamados.svg"
           alt="hero"
@@ -103,7 +144,7 @@ const page = () => {
           height={250}
           objectFit="cover"
         />
-          <Image
+        <Image
           src="/images/jebe.svg"
           alt="hero"
           width={50}
@@ -113,7 +154,7 @@ const page = () => {
         />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default page
+export default Page;

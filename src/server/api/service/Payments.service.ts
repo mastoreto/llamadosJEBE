@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma, Payment } from '@prisma/client';
+import { PrismaClient, Prisma, type Payment } from '@prisma/client';
 
 // Inicializar el cliente de Prisma
 const prisma = new PrismaClient();

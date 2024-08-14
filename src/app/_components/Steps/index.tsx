@@ -9,7 +9,7 @@ import FourthStep from './FourthStep';
 import FiveStep from './FiveStep';
 
 import { useFormSlice } from '@jebe/stores/form';
-import { InitialValues } from '../../../utils/types';
+import { type InitialValues } from '@jebe/utils/types';
 
 
 const Steps = () => {

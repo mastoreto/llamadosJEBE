@@ -3,20 +3,20 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 "use client";
-import { useState, useMemo, SetStateAction } from "react";
+import { useState, useMemo, type SetStateAction } from "react";
 import Field from '../Inputs/Field';
 import FieldDate from '../Inputs/FieldDate';
 import FieldSelect from "../Inputs/FieldSelect";
-import { Select, SelectSection, SelectItem, type Selection } from "@nextui-org/react";
+import { Select, SelectItem, type Selection } from "@nextui-org/react";
 import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 import { useFormikContext, useField } from "formik";
 import { api } from "@jebe/trpc/react";
-
 import type { InitialValues } from '@jebe/utils/types';
 
 import { useFormSlice } from '@jebe/stores/form';
-import { m } from "framer-motion";
+
+
 
 const FirstStep = () => {
   const [value, setValues] = useState<Selection>(new Set([]));
